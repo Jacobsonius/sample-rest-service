@@ -1,0 +1,18 @@
+{
+    "name": "pom.xml",
+    "type": "file",
+    "kind": "xml - build",
+    "frameworks": [
+        "Spring Boot 2.1.6.RELEASE",
+        "Maven (implicit version based on schema)",
+        "JaCoCo 0.8.10"
+    ],
+    "dependencies": [
+        "org.springframework.boot:spring-boot-starter-actuator",
+        "org.springframework.boot:spring-boot-starter-web",
+        "org.springframework.boot:spring-boot-starter-test:test",
+        "org.springframework.boot:spring-boot-starter-data-jpa",
+        "com.h2database:h2"
+    ],
+    "description": "This is the Maven Project Object Model (POM) file for a Spring Boot application named 'demo'. It defines the project's configuration, including dependencies such as Spring Boot Actuator, Web, Data JPA, and H2 database. The file also includes a JaCoCo plugin for code coverage reporting. The main functionality of this project is to serve as a sample Spring Boot service, potentially used for testing or demonstration purposes."
+}
