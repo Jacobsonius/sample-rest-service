@@ -2,15 +2,26 @@ package com.sampleservice.demo;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import static org.junit.Assert.assertNotNull;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class DemoApplicationTests {
 
-	@Test
-	public void contextLoads() {
-	}
+    @Autowired
+    private ApplicationContext applicationContext;
 
+    @Test
+    public void contextLoads() {
+        // Verify that the application context is not null
+        assertNotNull("Application context should not be null", applicationContext);
+
+        // Optionally, check for specific beans in the context
+        assertNotNull("DemoApplication bean should exist", applicationContext.getBean(DemoApplication.class));
+    }
 }

@@ -1,0 +1,81 @@
+{
+    "entities": [
+        {
+            "class": "Student.java",
+            "test_class": "",
+            "test_type": "",
+            "bom": "pom.xml",
+            "test_description": ""
+        },
+        {
+            "class": "StudentInDTO.java",
+            "test_class": "",
+            "test_type": "",
+            "bom": "pom.xml",
+            "test_description": ""
+        },
+        {
+            "class": "Misc.java",
+            "test_class": "",
+            "test_type": "",
+            "bom": "pom.xml",
+            "test_description": ""
+        },
+        {
+            "class": "StudentDAO.java",
+            "test_class": "",
+            "test_type": "",
+            "bom": "pom.xml",
+            "test_description": ""
+        },
+        {
+            "class": "StudentValidator.java",
+            "test_class": "",
+            "test_type": "",
+            "bom": "pom.xml",
+            "test_description": ""
+        },
+        {
+            "class": "DemoApplication.java",
+            "test_class": "DemoApplicationTests.java",
+            "test_type": "junit",
+            "bom": "pom.xml",
+            "test_description": "This is a test class for the Spring Boot application context initialization. It ensures that the application context loads successfully. The main function is `contextLoads`, which verifies the application context setup."
+        },
+        {
+            "class": "StudentOutDTO.java",
+            "test_class": "",
+            "test_type": "",
+            "bom": "pom.xml",
+            "test_description": ""
+        },
+        {
+            "class": "StudentController.java",
+            "test_class": "",
+            "test_type": "",
+            "bom": "pom.xml",
+            "test_description": ""
+        },
+        {
+            "class": "StudentServiceImpl.java",
+            "test_class": "",
+            "test_type": "",
+            "bom": "pom.xml",
+            "test_description": ""
+        },
+        {
+            "class": "StudentService.java",
+            "test_class": "",
+            "test_type": "",
+            "bom": "pom.xml",
+            "test_description": ""
+        },
+        {
+            "class": "PopulateDatabase.java",
+            "test_class": "",
+            "test_type": "",
+            "bom": "pom.xml",
+            "test_description": ""
+        }
+    ]
+}
