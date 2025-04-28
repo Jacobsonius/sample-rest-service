@@ -1,0 +1,21 @@
+2025-04-28 08:40:37,599 INFO com.sampleservice.demo.DemoApplicationTests [main] Starting DemoApplicationTests on fv-az1338-807 with PID 2615 (started by runner in /home/runner/work/sample-rest-service/sample-rest-service)
+2025-04-28 08:40:37,601 INFO com.sampleservice.demo.DemoApplicationTests [main] No active profile set, falling back to default profiles: default
+2025-04-28 08:40:39,703 INFO com.zaxxer.hikari.HikariDataSource [main] HikariPool-1 - Starting...
+2025-04-28 08:40:40,037 INFO com.zaxxer.hikari.HikariDataSource [main] HikariPool-1 - Start completed.
+2025-04-28 08:40:40,124 INFO org.hibernate.jpa.internal.util.LogHelper [main] HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2025-04-28 08:40:40,200 INFO org.hibernate.Version [main] HHH000412: Hibernate Core {5.3.10.Final}
+2025-04-28 08:40:40,201 INFO org.hibernate.cfg.Environment [main] HHH000206: hibernate.properties not found
+2025-04-28 08:40:40,326 INFO org.hibernate.annotations.common.Version [main] HCANN000001: Hibernate Commons Annotations {5.0.4.Final}
+2025-04-28 08:40:40,458 INFO org.hibernate.dialect.Dialect [main] HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2025-04-28 08:40:41,210 INFO org.hibernate.tool.schema.internal.SchemaCreatorImpl [main] HHH000476: Executing import script 'org.hibernate.tool.schema.internal.exec.ScriptSourceInputNonExistentImpl@66e33cea'
+2025-04-28 08:40:41,572 INFO org.hibernate.hql.internal.QueryTranslatorFactoryInitiator [main] HHH000397: Using ASTQueryTranslatorFactory
+2025-04-28 08:40:43,002 INFO com.sampleservice.demo.DemoApplicationTests [main] Started DemoApplicationTests in 5.843 seconds (JVM running for 6.942)
+2025-04-28 08:40:45,802 INFO org.hibernate.tool.schema.internal.SchemaDropperImpl$DelayedDropActionImpl [Thread-3] HHH000477: Starting delayed evictData of schema as part of SessionFactory shut-down'
+2025-04-28 08:40:45,900 WARN org.hibernate.engine.jdbc.spi.SqlExceptionHelper [Thread-3] SQL Error: 90121, SQLState: 90121
+2025-04-28 08:40:45,901 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper [Thread-3] Database is already closed (to disable automatic closing at VM shutdown, add ";DB_CLOSE_ON_EXIT=FALSE" to the db URL) [90121-199]
+2025-04-28 08:40:45,902 WARN org.hibernate.engine.jdbc.spi.SqlExceptionHelper [Thread-3] SQL Error: 90121, SQLState: 90121
+2025-04-28 08:40:45,902 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper [Thread-3] Database is already closed (to disable automatic closing at VM shutdown, add ";DB_CLOSE_ON_EXIT=FALSE" to the db URL) [90121-199]
+2025-04-28 08:40:45,902 INFO com.zaxxer.hikari.HikariDataSource [Thread-3] HikariPool-1 - Shutdown initiated...
+2025-04-28 08:40:45,904 INFO com.zaxxer.hikari.HikariDataSource [Thread-3] HikariPool-1 - Shutdown completed.

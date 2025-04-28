@@ -1,0 +1,341 @@
+{
+   "source_roots": [
+{
+    "name": "Student.java",
+    "date": "2025-04-28 08:29:35",
+    "type": "file",
+    "kind": "java - runtime",
+    "path": "./src/main/java/com/sampleservice/demo/model/Student.java",
+    "package": "com.sampleservice.demo.model",
+    "domain": "dao",
+    "frameworks": [
+        "Spring Boot 2.1.6.RELEASE",
+        "Hibernate (version managed by Spring Boot 2.1.6.RELEASE)"
+    ],
+    "dependencies": [
+        "javax.persistence.Column",
+        "javax.persistence.Entity",
+        "javax.persistence.GeneratedValue",
+        "javax.persistence.GenerationType",
+        "javax.persistence.Id",
+        "javax.persistence.Table"
+    ],
+    "description": "The Student class is an entity representing a student in the database. It includes fields such as id, firstName, lastName, klass, and email, along with their respective getters and setters. The class is annotated with JPA annotations to map it to a database table named 'STUDENT'. Main functions include basic CRUD operations facilitated by the ORM framework."
+},{
+    "name": "StudentInDTO.java",
+    "date": "2025-04-28 08:29:35",
+    "type": "file",
+    "kind": "java - runtime",
+    "path": "./src/main/java/com/sampleservice/demo/dto/inbound/StudentInDTO.java",
+    "package": "com.sampleservice.demo.dto.inbound",
+    "domain": "dto",
+    "frameworks": [
+        "Spring Boot 2.1.6.RELEASE"
+    ],
+    "dependencies": [
+        "com.sampleservice.demo.model.Student"
+    ],
+    "description": "This class represents an incoming Data Transfer Object (DTO) for student data requests. It includes fields for first name, last name, and class level (klass). The main functionality includes converting the DTO to an entity object using the `toEntity` method, as well as standard getter and setter methods for each field."
+},{
+    "name": "Misc.java",
+    "date": "2025-04-28 08:29:35",
+    "type": "file",
+    "kind": "java - runtime",
+    "path": "./src/main/java/com/sampleservice/demo/util/Misc.java",
+    "package": "com.sampleservice.demo.util",
+    "domain": "util",
+    "frameworks": [
+        "Spring Framework 2.1.6.RELEASE"
+    ],
+    "dependencies": [
+        "org.springframework.util.Assert"
+    ],
+    "description": "This class contains utility methods for various operations such as summing integers, dividing numbers, checking supported colors, calculating factorials, determining if a number is prime, and checking if a number is even. The class uses Spring's Assert utility to validate method arguments."
+},{
+    "name": "StudentDAO.java",
+    "date": "2025-04-28 08:29:35",
+    "type": "file",
+    "kind": "java - runtime",
+    "path": "./src/main/java/com/sampleservice/demo/dao/StudentDAO.java",
+    "package": "com.sampleservice.demo.dao",
+    "domain": "dao",
+    "frameworks": [
+        "Spring Data JPA (part of Spring Boot 2.1.6.RELEASE)"
+    ],
+    "dependencies": [
+        "java.util.Optional",
+        "org.springframework.data.jpa.repository.Query",
+        "org.springframework.data.repository.CrudRepository",
+        "org.springframework.data.repository.query.Param",
+        "org.springframework.stereotype.Repository",
+        "com.sampleservice.demo.model.Student"
+    ],
+    "description": "This is a Data Access Object (DAO) interface for managing Student entities in the database. It extends CrudRepository to provide CRUD operations and defines custom query methods:\n\n- findByFirstNameLike(String firstName): Finds a student by matching the first name using 'LIKE' query.\n- findByEmail(@Param(\"email\") String email): Finds a student by their email address using a custom JPQL query."
+},{
+    "name": "mvnw.cmd",
+    "date": "2025-04-28 08:29:35",
+    "type": "file",
+    "kind": "build / resource",
+    "path": "./mvnw.cmd",
+    "package": "",
+    "domain": "other",
+    "frameworks": ["Maven Wrapper - N/A"],
+    "dependencies": [],
+    "description": "The mvnw.cmd file is a Windows batch script used to execute Maven commands without requiring a global installation of Maven. It utilizes the Maven Wrapper, which ensures consistent builds by bundling a specific version of Maven with the project. This file does not contain any Java code or imports, and its primary function is to facilitate project builds on Windows systems."
+},{
+    "name": "StudentValidator.java",
+    "date": "2025-04-28 08:29:35",
+    "type": "file",
+    "kind": "java - runtime",
+    "path": "./src/main/java/com/sampleservice/demo/validator/StudentValidator.java",
+    "package": "com.sampleservice.demo.validator",
+    "domain": "service",
+    "frameworks": [
+        "Spring Boot 2.1.6.RELEASE"
+    ],
+    "dependencies": [
+        "org.springframework.http.HttpStatus",
+        "org.springframework.web.server.ResponseStatusException",
+        "java.util.Optional"
+    ],
+    "description": "The StudentValidator class is a utility component used to validate the presence of entities, specifically throwing a 404 error if an entity is not found. The main function is `validate404`, which checks if an Optional object is present and throws a `ResponseStatusException` with a NOT_FOUND status if it is absent."
+},{
+    "name": "pom.xml",
+    "date": "2025-04-28 08:29:35",
+    "type": "file",
+    "kind": "xml - build",
+    "path": "./pom.xml",
+    "package": "",
+    "domain": "other",
+    "frameworks": [
+        "Spring Boot 2.1.6.RELEASE",
+        "Maven",
+        "JaCoCo 0.8.10"
+    ],
+    "dependencies": [
+        "org.springframework.boot:spring-boot-starter-actuator",
+        "org.springframework.boot:spring-boot-starter-web",
+        "org.springframework.boot:spring-boot-starter-test",
+        "org.springframework.boot:spring-boot-starter-data-jpa",
+        "com.h2database:h2"
+    ],
+    "description": "This is a Maven build configuration file for a Spring Boot application. It includes dependencies for web functionality, data JPA, actuator, and testing. The project uses Java 1.8 and includes a JaCoCo plugin for code coverage reporting."
+},{
+    "name": "DemoApplication.java",
+    "date": "2025-04-28 08:29:35",
+    "type": "file",
+    "kind": "java - runtime",
+    "path": "./src/main/java/com/sampleservice/demo/DemoApplication.java",
+    "package": "com.sampleservice.demo",
+    "domain": "other",
+    "frameworks": [
+        "Spring Boot 2.1.6.RELEASE"
+    ],
+    "dependencies": [
+        "org.springframework.boot.SpringApplication",
+        "org.springframework.boot.autoconfigure.SpringBootApplication"
+    ],
+    "description": "This is the main application class for a Spring Boot application. It serves as the entry point for the application and initializes the Spring Boot context using SpringApplication.run(). The class does not contain additional logic or methods beyond the standard Spring Boot application setup."
+},{
+    "name": "application.properties",
+    "date": "2025-04-28 08:29:35",
+    "type": "file",
+    "kind": "resource",
+    "path": "./src/main/resources/application.properties",
+    "package": "",
+    "domain": "other",
+    "frameworks": ["Spring Boot - version not specified"],
+    "dependencies": [],
+    "description": "Configuration file used in Spring Boot applications to define application properties such as database connections, server settings, and other environment-specific configurations. It is a key-value pair file and does not contain any Java code or imports."
+},{
+    "name": "DemoApplicationTests.java",
+    "date": "2025-04-28 08:29:35",
+    "type": "file",
+    "kind": "java - runtime",
+    "path": "./src/test/java/com/sampleservice/demo/DemoApplicationTests.java",
+    "package": "com.sampleservice.demo",
+    "domain": "test",
+    "frameworks": [
+        "Spring Boot 2.1.6.RELEASE",
+        "JUnit 4"
+    ],
+    "dependencies": [
+        "org.junit.Test",
+        "org.junit.runner.RunWith",
+        "org.springframework.boot.test.context.SpringBootTest",
+        "org.springframework.test.context.junit4.SpringRunner"
+    ],
+    "description": "This is a test class for the DemoApplication. It uses Spring Boot's testing capabilities to ensure that the application context loads successfully. The main function is 'contextLoads', which verifies that the application context is correctly initialized."
+},{
+    "name": "loadtest.log",
+    "date": "2025-04-28 08:30:03",
+    "type": "file",
+    "kind": "other",
+    "path": "./loadtest.log",
+    "package": "",
+    "domain": "other",
+    "frameworks": [],
+    "dependencies": [],
+    "description": "This is a binary log file used for load testing. It does not contain Java code or imports. Its primary purpose is to store logs generated during load testing processes."
+},{
+    "name": "StudentOutDTO.java",
+    "date": "2025-04-28 08:29:35",
+    "type": "file",
+    "kind": "java - runtime",
+    "path": "./src/main/java/com/sampleservice/demo/dto/outbound/StudentOutDTO.java",
+    "package": "com.sampleservice.demo.dto.outbound",
+    "domain": "dto",
+    "frameworks": [
+        "Spring Boot 2.1.6.RELEASE"
+    ],
+    "dependencies": [
+        "com.sampleservice.demo.model.Student"
+    ],
+    "description": "This class represents an outgoing DTO (Data Transfer Object) for the Student entity. It is used to transfer student data from the service layer to the client or other layers. The class includes two constructors: one for direct initialization and another that maps fields from the Student entity. It also provides getter and setter methods for all its properties."
+},{
+    "name": "StudentController.java",
+    "date": "2025-04-28 08:29:35",
+    "type": "file",
+    "kind": "java - runtime",
+    "path": "./src/main/java/com/sampleservice/demo/controller/StudentController.java",
+    "package": "com.sampleservice.demo.controller",
+    "domain": "controller",
+    "frameworks": [
+        "Spring Boot 2.1.6.RELEASE"
+    ],
+    "dependencies": [
+        "java.util.*",
+        "com.sampleservice.demo.service.StudentService",
+        "org.springframework.beans.factory.annotation.Autowired",
+        "org.springframework.http.HttpStatus",
+        "org.springframework.http.ResponseEntity",
+        "org.springframework.web.bind.annotation.RestController",
+        "org.springframework.web.bind.annotation.RequestMapping",
+        "org.springframework.web.bind.annotation.GetMapping",
+        "org.springframework.web.bind.annotation.PathVariable",
+        "org.springframework.web.bind.annotation.PostMapping",
+        "org.springframework.web.bind.annotation.RequestBody",
+        "org.springframework.web.bind.annotation.DeleteMapping",
+        "com.sampleservice.demo.dto.inbound.StudentInDTO",
+        "com.sampleservice.demo.dto.outbound.StudentOutDTO",
+        "com.sampleservice.demo.model.Student"
+    ],
+    "description": "This is a REST controller class that exposes endpoints for CRUD operations on Student entities. The main functions include:\n\n- list(): Retrieves a list of all students.\n- getById(Long id): Retrieves a student by their ID.\n- save(StudentInDTO dto): Creates or updates a student based on the provided DTO.\n- delete(Long id): Deletes a student by their ID."
+},{
+    "name": "StudentServiceImpl.java",
+    "date": "2025-04-28 08:29:35",
+    "type": "file",
+    "kind": "java - runtime",
+    "path": "./src/main/java/com/sampleservice/demo/service/StudentServiceImpl.java",
+    "package": "com.sampleservice.demo.service",
+    "domain": "service",
+    "frameworks": [
+        "Spring Boot 2.1.6.RELEASE",
+        "Spring Data JPA"
+    ],
+    "dependencies": [
+        "com.sampleservice.demo.validator.StudentValidator",
+        "com.sampleservice.demo.dao.StudentDAO",
+        "com.sampleservice.demo.model.Student",
+        "org.springframework.beans.factory.annotation.Autowired",
+        "org.springframework.stereotype.Service",
+        "org.springframework.transaction.annotation.Transactional",
+        "java.util.Collection",
+        "java.util.List",
+        "java.util.Optional",
+        "java.util.stream.Collectors",
+        "java.util.stream.StreamSupport"
+    ],
+    "description": "This class implements the StudentService interface and provides business logic for managing Student entities. It includes methods for listing all students, finding students by ID, first name, or email, saving or updating students, deleting students, and saving multiple students in bulk. The class uses Spring's @Transactional annotation for transaction management and interacts with the StudentDAO for database operations. Validation is performed using the StudentValidator to ensure proper error handling."
+},{
+    "name": "data.sql",
+    "date": "2025-04-28 08:29:35",
+    "type": "file",
+    "kind": "resource",
+    "path": "./src/main/resources/data.sql",
+    "package": "",
+    "domain": "other",
+    "frameworks": [],
+    "dependencies": [],
+    "description": "A binary SQL resource file typically used for database initialization or data population. It is located in the resources directory and is not a Java source file. This file does not contain any imports, classes, or frameworks."
+},{
+    "name": "mvnw",
+    "date": "2025-04-28 08:29:35",
+    "type": "file",
+    "kind": "other - executable script",
+    "path": "./mvnw",
+    "package": "",
+    "domain": "other",
+    "frameworks": [],
+    "dependencies": [],
+    "description": "The mvnw file is a Maven wrapper script that allows developers to run Maven commands without having Maven installed on their system. It ensures consistent builds across different environments by downloading and using a specific version of Maven required for the project."
+},{
+    "name": "README.md",
+    "date": "2025-04-28 08:29:35",
+    "type": "file",
+    "kind": "other",
+    "path": "./README.md",
+    "package": "",
+    "domain": "other",
+    "frameworks": [
+        "Spring Boot 2.1.6"
+    ],
+    "dependencies": [],
+    "description": "This file provides an overview of a basic REST service application used to test the Diffblue Cover plugin. The application is built with Spring Boot 2.1.6 and includes webapp, actuator, and spring-data-jpa starters. It exposes four endpoints for managing students (list, get by ID, delete by ID, create). The service uses an in-memory H2 database, which is populated with 20K student records upon startup via the PopulateDatabase class. The README includes instructions for setting up the application, interacting with the endpoints, and accessing the H2 console."
+},{
+    "name": "LICENSE",
+    "date": "2025-04-28 08:29:35",
+    "type": "file",
+    "kind": "other",
+    "path": "./LICENSE",
+    "package": "",
+    "domain": "other",
+    "frameworks": [],
+    "dependencies": [],
+    "description": "This is a binary file, typically used to store license information. It does not contain code or dependencies and is not related to any specific domain or framework."
+},{
+    "name": "PopulateDatabase.java",
+    "date": "2025-04-28 08:29:35",
+    "type": "file",
+    "kind": "java - runtime",
+    "path": "./src/main/java/com/sampleservice/demo/config/PopulateDatabase.java",
+    "package": "com.sampleservice.demo.config",
+    "domain": "service",
+    "frameworks": [
+        "Spring Boot 2.1.6.RELEASE"
+    ],
+    "dependencies": [
+        "java.util.ArrayList",
+        "java.util.List",
+        "java.util.concurrent.ThreadLocalRandom",
+        "java.util.stream.IntStream",
+        "com.sampleservice.demo.dao.StudentDAO",
+        "com.sampleservice.demo.model.Student",
+        "com.sampleservice.demo.service.StudentService",
+        "org.slf4j.Logger",
+        "org.slf4j.LoggerFactory",
+        "org.springframework.beans.factory.annotation.Autowired",
+        "org.springframework.boot.ApplicationArguments",
+        "org.springframework.boot.ApplicationRunner",
+        "org.springframework.stereotype.Component"
+    ],
+    "description": "This class implements the ApplicationRunner interface to populate an in-memory H2 database with 20,000 dummy records during Spring Boot application startup. The main function is the `run` method, which creates a list of Student objects with random data and saves them using the StudentService."
+},{
+    "name": "StudentService.java",
+    "date": "2025-04-28 08:29:35",
+    "type": "file",
+    "kind": "java - runtime",
+    "path": "./src/main/java/com/sampleservice/demo/service/StudentService.java",
+    "package": "com.sampleservice.demo.service",
+    "domain": "interface",
+    "frameworks": [
+        "Spring Boot 2.1.6.RELEASE"
+    ],
+    "dependencies": [
+        "com.sampleservice.demo.model.Student",
+        "java.util.Collection",
+        "java.util.List"
+    ],
+    "description": "This is a service interface for managing Student entities. It provides methods for listing all students, finding students by first name, ID, or email, deleting a student, and saving or updating a student. Additionally, it supports bulk saving of multiple students."
+}   ]
+}
