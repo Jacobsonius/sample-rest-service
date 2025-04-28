@@ -1,0 +1,39 @@
+{
+    "entities": [
+        {
+            "class": "Student",
+            "test_class": "DemoApplicationTests",
+            "test_type": "junit",
+            "bom": "pom.xml",
+            "test_description": "This is a test class for the DemoApplication. It uses Spring Boot's testing capabilities to ensure the application context loads correctly. The main function is 'contextLoads', which verifies that the application context starts without errors."
+        },
+        {
+            "class": "StudentController",
+            "test_class": "DemoApplicationTests",
+            "test_type": "junit",
+            "bom": "pom.xml",
+            "test_description": "This is a test class for the DemoApplication. It uses Spring Boot's testing capabilities to ensure the application context loads correctly. The main function is 'contextLoads', which verifies that the application context starts without errors."
+        },
+        {
+            "class": "StudentDAO",
+            "test_class": "DemoApplicationTests",
+            "test_type": "junit",
+            "bom": "pom.xml",
+            "test_description": "This is a test class for the DemoApplication. It uses Spring Boot's testing capabilities to ensure the application context loads correctly. The main function is 'contextLoads', which verifies that the application context starts without errors."
+        },
+        {
+            "class": "StudentService",
+            "test_class": "DemoApplicationTests",
+            "test_type": "junit",
+            "bom": "pom.xml",
+            "test_description": "This is a test class for the DemoApplication. It uses Spring Boot's testing capabilities to ensure the application context loads correctly. The main function is 'contextLoads', which verifies that the application context starts without errors."
+        },
+        {
+            "class": "PopulateDatabase",
+            "test_class": "DemoApplicationTests",
+            "test_type": "junit",
+            "bom": "pom.xml",
+            "test_description": "This is a test class for the DemoApplication. It uses Spring Boot's testing capabilities to ensure the application context loads correctly. The main function is 'contextLoads', which verifies that the application context starts without errors."
+        }
+    ]
+}
