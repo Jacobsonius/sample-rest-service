@@ -132,4 +132,4 @@ jobs:
           branch: auto/update-report
           title: "QA Assistance"
           body: "This PR was automatically created from QA Assistance"
-          base: master
+          base: qa
