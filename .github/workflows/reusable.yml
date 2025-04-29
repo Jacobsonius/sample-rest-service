@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-latest
 
     outputs:
-      build_exit_code: ${{ steps.capture_exit_code.outputs.build_exit_code }}
+      build_exit_code: ${{ steps.build_step.outputs.build_exit_code }}
 
     steps:
       - name: Checkout project
@@ -82,13 +82,17 @@ jobs:
           output-dir: ./
 
       - name: Build and re-test (Attempt ${{ inputs.attempt }})
+        id: build_step
         continue-on-error: true
-        run: mvn clean verify | tee build.log
-
-      - name: Capture Maven Exit Code
-        id: capture_exit_code
         run: |
-          echo "build_exit_code=$?" >> $GITHUB_OUTPUT        
+          mvn clean verify > build_raw.log
+          EXIT_CODE=$?
+          cat build_raw.log | tee build.log
+          echo "build_exit_code=$EXIT_CODE" >> $GITHUB_OUTPUT
+
+      - name: Print build exit code
+        run: | 
+          echo "Build exit code: ${{ steps.build_step.outputs.build_exit_code }}"          
 
       - name: Save build log
         if: always()
@@ -118,6 +122,7 @@ jobs:
         run: |
           rm -f .plan
           rm -f loadtest.log
+          rm -f build_raw.log
           rm -f build.log
           rm -rf .qa/.qa
 
