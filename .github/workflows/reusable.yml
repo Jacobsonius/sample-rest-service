@@ -130,7 +130,6 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           commit-message: "QA Assistance: JUnit tests updated"
           branch: auto/update-report
-          auto-merge: true
           title: "QA Assistance"
           body: "This PR was automatically created from QA Assistance"
           base: master
