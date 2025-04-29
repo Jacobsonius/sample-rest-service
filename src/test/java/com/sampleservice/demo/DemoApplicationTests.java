@@ -9,8 +9,14 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest
 public class DemoApplicationTests {
 
-	@Test
-	public void contextLoads() {
-	}
+    @Test
+    public void contextLoads() {
+        // Verify that the application context loads successfully
+    }
 
+    @Test
+    public void testMainMethod() {
+        // Test the main method to ensure it initializes without throwing exceptions
+        DemoApplication.main(new String[] {});
+    }
 }
