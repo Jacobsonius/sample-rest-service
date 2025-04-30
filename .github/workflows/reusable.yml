@@ -22,34 +22,34 @@ jobs:
       build_exit_code: ${{ steps.build_step.outputs.build_exit_code }}
 
     steps:
-      - name: Checkout project
+      - name: 🧾 Checkout project
         uses: actions/checkout@v4
 
-      - name: Set up JDK
+      - name: ☕ Set up JDK
         uses: actions/setup-java@v3
         with:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Download LLM index
+      - name: 📥 Download LLM index
         uses: actions/download-artifact@v4
         with:
           name: llm-index
           path: .qa
 
-      - name: Download test report
+      - name: 📥 Download test report
         uses: actions/download-artifact@v4
         with:
           name: junit-report
           path: target/surefire-reports/
 
-      - name: Download coverage report
+      - name: 📥 Download coverage report
         uses: actions/download-artifact@v4
         with:
           name: jacoco-report
           path: target/site/jacoco
 
-      - name: Generating test plan
+      - name: 🧠 Generating test plan
         id: QATestPlan
         uses: Jacobsonius/qa-assistance-action@master
         with:
@@ -61,7 +61,7 @@ jobs:
           input-dir: ./
           output-dir: ./
 
-      - name: Save plan
+      - name: 📄 Save plan
         uses: actions/upload-artifact@v4
         with:
           name: test-plan
@@ -69,7 +69,7 @@ jobs:
           path: .plan
           overwrite: true
 
-      - name: Update tests
+      - name: 🧠 Update tests
         id: QAUpdateTests
         uses: Jacobsonius/qa-assistance-action@master
         with:
@@ -81,7 +81,7 @@ jobs:
           input-dir: ./
           output-dir: ./
 
-      - name: Build and re-test (Attempt ${{ inputs.attempt }})
+      - name: ⚙️Build and re-test (Attempt ${{ inputs.attempt }})
         id: build_step
         continue-on-error: true
         run: |
@@ -92,7 +92,7 @@ jobs:
         run: | 
           echo "Build exit code: ${{ steps.build_step.outputs.build_exit_code }}"          
 
-      - name: Save build log
+      - name: 📄 Save build log
         if: always()
         uses: actions/upload-artifact@v4
         with:
@@ -100,7 +100,7 @@ jobs:
           path: build.log
           overwrite: true
 
-      - name: Save test report
+      - name: 📄 Save test report
         if: always()
         uses: actions/upload-artifact@v4
         with:
@@ -108,7 +108,7 @@ jobs:
           path: target/surefire-reports/*.xml
           overwrite: true
 
-      - name: Save coverage report
+      - name: 📈 Save coverage report
         if: always()
         uses: actions/upload-artifact@v4
         with:
@@ -116,7 +116,7 @@ jobs:
           path: target/site/jacoco/index.html
           overwrite: true
 
-      - name: Remove tmp files
+      - name: 🧹 Remove tmp files
         run: |
           rm -f .plan
           rm -f loadtest.log
@@ -124,7 +124,8 @@ jobs:
           rm -f build.log
           rm -rf .qa/.qa
 
-      - name: Create Pull Request
+      - name: 🔀 Create Pull Request
+        if: steps.build_step.outputs.build_exit_code == '0'
         uses: peter-evans/create-pull-request@v5
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
