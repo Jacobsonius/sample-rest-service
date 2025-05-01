@@ -46,6 +46,7 @@ jobs:
           key: ${{ secrets.KEY }}
           action-name: INDEX
           target-value: '80'
+          build-report-dir: ./
           test-report-dir: ./target
           coverage-report-dir: ./target
           input-dir: ./
