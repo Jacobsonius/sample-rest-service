@@ -148,4 +148,4 @@ jobs:
           subject: "✅ QA action is complete!"
           body: "Hi!\n\nQA action is complete. All tests is passed. 🎉"
           to: jacobsoni@mail.ru
-          from: CI Bot <ci-bot@example.com>
+          from: AI CI Bot <ci-bot@example.com>
