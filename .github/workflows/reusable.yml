@@ -126,6 +126,13 @@ jobs:
           rm -f build.log
           rm -rf .qa/.qa
 
+      - name: Force fail if third attempt fails
+        run: |
+          if [[ "${{ steps.build_step.outputs.build_exit_code }}" != "0" && "${{ inputs.attempt }}" == "3" ]]; then
+            echo "❌ Job is being forcefully failed due to 3rd failed attempt"
+            exit 1
+          fi
+
       - name: 🔀 Create Pull Request
         if: steps.build_step.outputs.build_exit_code == '0'
         uses: peter-evans/create-pull-request@v5
