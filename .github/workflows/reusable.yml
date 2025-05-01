@@ -90,9 +90,9 @@ jobs:
           mvn clean verify | tee build.log
           echo "build_exit_code=${PIPESTATUS[0]}" >> $GITHUB_OUTPUT
 
-      - name: Print build exit code
-        run: | 
-          echo "Build exit code: ${{ steps.build_step.outputs.build_exit_code }}"          
+#      - name: Print build exit code
+#        run: |
+#          echo "Build exit code: ${{ steps.build_step.outputs.build_exit_code }}"
 
       - name: 📄 Save build log
         if: always()
