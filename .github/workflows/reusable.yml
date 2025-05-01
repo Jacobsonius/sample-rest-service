@@ -134,3 +134,16 @@ jobs:
           title: "QA Assistance"
           body: "This PR was automatically created from QA Assistance"
           base: qa
+
+      - name: 📧 Send notification email
+        if: steps.build_step.outputs.build_exit_code == '0'
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.mail.ru
+          server_port: 465
+          username: ${{ secrets.SMTP_USERNAME }}
+          password: ${{ secrets.SMTP_PASSWORD }}
+          subject: "✅ QA action is complete!"
+          body: "Hi!\n\nQA action is complete. All tests is passed. 🎉"
+          to: jacobsoni@mail.ru
+          from: CI Bot <ci-bot@example.com>
