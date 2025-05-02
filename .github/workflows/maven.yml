@@ -23,22 +23,6 @@ jobs:
         continue-on-error: false
         run: mvn clean verify
 
-      - name: 📄 Save test report
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: junit-report
-          path: target/surefire-reports/*.xml
-          overwrite: true
-
-      - name: 📈 Save coverage report
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: jacoco-report
-          path: target/site/jacoco/index.html
-          overwrite: true
-
       - name: 🧠 Generate LLM index
         id: QAIndex
         uses: Jacobsonius/qa-assistance-action@master
@@ -52,37 +36,43 @@ jobs:
           input-dir: ./
           output-dir: ./
 
-      - name: 💾 Save LLM index
+      - name: Show files
+        run: tree .
+
+      - name: 💾 Save artefact
         uses: actions/upload-artifact@v4
         with:
-          name: llm-index
-          include-hidden-files: true
-          path: .qa
+          name: qa-artefacts
           overwrite: true
+          include-hidden-files: true
+          path: |
+            .qa
+            ./target/site/jacoco/index.html
+            ./target/surefire-reports/*.xml
 
-  update-tests:
-    needs: create-llm-index
-    if: needs.create-llm-index.result == 'success'
-    uses: ./.github/workflows/reusable.yml
-    with:
-      attempt: 1
-    secrets:
-      MY_SECRET_KEY: ${{ secrets.KEY }}
-
-  update-tests-retry-1:
-    needs: update-tests
-    if: needs.update-tests.result == 'failure' || needs.update-tests.outputs.build_exit_code != '0'
-    uses: ./.github/workflows/reusable.yml
-    with:
-      attempt: 2
-    secrets:
-      MY_SECRET_KEY: ${{ secrets.KEY }}
-
-  update-tests-retry-2:
-    needs: update-tests-retry-1
-    if: needs.update-tests-retry-1.result == 'failure' || needs.update-tests-retry-1.outputs.build_exit_code != '0'
-    uses: ./.github/workflows/reusable.yml
-    with:
-      attempt: 3
-    secrets:
-      MY_SECRET_KEY: ${{ secrets.KEY }}
+#  update-tests:
+#    needs: create-llm-index
+#    if: needs.create-llm-index.result == 'success'
+#    uses: ./.github/workflows/reusable.yml
+#    with:
+#      attempt: 1
+#    secrets:
+#      MY_SECRET_KEY: ${{ secrets.KEY }}
+#
+#  update-tests-retry-1:
+#    needs: update-tests
+#    if: needs.update-tests.result == 'failure' || needs.update-tests.outputs.build_exit_code != '0'
+#    uses: ./.github/workflows/reusable.yml
+#    with:
+#      attempt: 2
+#    secrets:
+#      MY_SECRET_KEY: ${{ secrets.KEY }}
+#
+#  update-tests-retry-2:
+#    needs: update-tests-retry-1
+#    if: needs.update-tests-retry-1.result == 'failure' || needs.update-tests-retry-1.outputs.build_exit_code != '0'
+#    uses: ./.github/workflows/reusable.yml
+#    with:
+#      attempt: 3
+#    secrets:
+#      MY_SECRET_KEY: ${{ secrets.KEY }}
