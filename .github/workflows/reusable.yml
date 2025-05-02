@@ -41,7 +41,7 @@ jobs:
         run: tree .
 
       - name: Show file of qa-artefacts
-        run: tree ./qa-artefacts
+        run: tree -a ./qa-artefacts
 
       - name: 🧠 Generating plan
         id: QATestPlan
@@ -54,7 +54,7 @@ jobs:
           test-report-dir: ./qa-artefacts/target/surefire-reports
           coverage-report-dir: ./qa-artefacts/target/site/jacoco
           input-dir: ./
-          output-dir: ./
+          output-dir: ./qa-artefacts
 
       - name: 🧠 Updating tests
         id: QAUpdateTests
@@ -67,7 +67,7 @@ jobs:
           test-report-dir: ./qa-artefacts/target/surefire-reports
           coverage-report-dir: ./qa-artefacts/target/site/jacoco
           input-dir: ./
-          output-dir: ./
+          output-dir: ./qa-artefacts
 
       - name: ⚙️Build and re-test (Attempt ${{ inputs.attempt }})
         id: build_step
@@ -84,16 +84,18 @@ jobs:
           overwrite: true
           include-hidden-files: true
           path: |
-            .plan
+            ./qa-artefacts/.plan
             build.log
             ./target/surefire-reports/*.xml
             ./target/site/jacoco/index.html
+
+      - name: Show file of work dir
+        run: tree -a .
 
       - name: 🧹 Remove tmp files
         run: |
           rm -f loadtest.log
           rm -f build.log
-          rm -f .plan
           rm -rf qa-artefacts
 
       - name: ❌ Force fail if third attempt fails
