@@ -37,8 +37,8 @@ jobs:
           name: qa-artefacts
           path: .qa
 
-      - name: Show files
-        run: tree .qa
+#      - name: Show files
+#        run: tree .qa
 
       - name: 🧠 Generating test plan
         id: QATestPlan
@@ -48,8 +48,8 @@ jobs:
           action-name: PLAN
           target-value: '80'
           build-report-dir: .qa
-          test-report-dir: .qa
-          coverage-report-dir: .qa
+          test-report-dir: .qa/target/surefire-reports
+          coverage-report-dir: .qa/target/site/jacoco
           input-dir: ./
           output-dir: ./
 
@@ -61,8 +61,8 @@ jobs:
           action-name: JUNIT_UPDATE
           target-value: '80'
           build-report-dir: .qa
-          test-report-dir: .qa
-          coverage-report-dir: .qa
+          test-report-dir: .qa/target/surefire-reports
+          coverage-report-dir: .qa/target/site/jacoco
           input-dir: ./
           output-dir: ./
 
@@ -88,6 +88,7 @@ jobs:
 
       - name: 🧹 Remove tmp files
         run: |
+          rm -f loadtest.log
           rm -f .plan
           rm -rf .qa
 
