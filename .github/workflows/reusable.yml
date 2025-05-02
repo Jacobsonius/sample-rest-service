@@ -35,34 +35,37 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: qa-artefacts
-          path: .qa
+          path: ./qa-artefacts
 
-#      - name: Show files
-#        run: tree .qa
+      - name: Show file of work dir
+        run: tree .
 
-      - name: 🧠 Generating test plan
+      - name: Show file of qa-artefacts
+        run: tree ./qa-artefacts
+
+      - name: 🧠 Generating plan
         id: QATestPlan
         uses: Jacobsonius/qa-assistance-action@master
         with:
           key: ${{ secrets.MY_SECRET_KEY }}
           action-name: PLAN
           target-value: '80'
-          build-report-dir: .qa
-          test-report-dir: .qa/target/surefire-reports
-          coverage-report-dir: .qa/target/site/jacoco
+          build-report-dir: ./qa-artefacts
+          test-report-dir: ./qa-artefacts/target/surefire-reports
+          coverage-report-dir: ./qa-artefacts/target/site/jacoco
           input-dir: ./
           output-dir: ./
 
-      - name: 🧠 Update tests
+      - name: 🧠 Updating tests
         id: QAUpdateTests
         uses: Jacobsonius/qa-assistance-action@master
         with:
           key: ${{ secrets.MY_SECRET_KEY }}
           action-name: JUNIT_UPDATE
           target-value: '80'
-          build-report-dir: .qa
-          test-report-dir: .qa/target/surefire-reports
-          coverage-report-dir: .qa/target/site/jacoco
+          build-report-dir: ./qa-artefacts
+          test-report-dir: ./qa-artefacts/target/surefire-reports
+          coverage-report-dir: ./qa-artefacts/target/site/jacoco
           input-dir: ./
           output-dir: ./
 
@@ -70,7 +73,7 @@ jobs:
         id: build_step
         continue-on-error: true
         run: |
-          mvn clean verify | tee .qa/build.log
+          mvn clean verify | tee build.log
           echo "build_exit_code=${PIPESTATUS[0]}" >> $GITHUB_OUTPUT
 
       - name: 💾 Save artefact
@@ -82,17 +85,18 @@ jobs:
           include-hidden-files: true
           path: |
             .plan
-            .qa/build.log
+            build.log
             ./target/surefire-reports/*.xml
             ./target/site/jacoco/index.html
 
       - name: 🧹 Remove tmp files
         run: |
           rm -f loadtest.log
+          rm -f build.log
           rm -f .plan
-          rm -rf .qa
+          rm -rf qa-artefacts
 
-      - name: Force fail if third attempt fails
+      - name: ❌ Force fail if third attempt fails
         run: |
           if [[ "${{ steps.build_step.outputs.build_exit_code }}" != "0" && "${{ inputs.attempt }}" == "3" ]]; then
             echo "❌ Job is being forcefully failed due to 3rd failed attempt"

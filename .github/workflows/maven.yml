@@ -48,14 +48,14 @@ jobs:
             ./target/site/jacoco/index.html
             ./target/surefire-reports/*.xml
 
-#  update-tests:
-#    needs: create-llm-index
-#    if: needs.create-llm-index.result == 'success'
-#    uses: ./.github/workflows/reusable.yml
-#    with:
-#      attempt: 1
-#    secrets:
-#      MY_SECRET_KEY: ${{ secrets.KEY }}
+  update-tests:
+    needs: create-llm-index
+    if: needs.create-llm-index.result == 'success'
+    uses: ./.github/workflows/reusable.yml
+    with:
+      attempt: 1
+    secrets:
+      MY_SECRET_KEY: ${{ secrets.KEY }}
 #
 #  update-tests-retry-1:
 #    needs: update-tests
