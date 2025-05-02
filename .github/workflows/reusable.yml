@@ -38,7 +38,7 @@ jobs:
           path: .qa
 
       - name: Show files
-        run: tree ./
+        run: tree .qa
 
       - name: 🧠 Generating test plan
         id: QATestPlan
@@ -53,14 +53,6 @@ jobs:
           input-dir: ./
           output-dir: ./
 
-      - name: 📄 Save plan
-        uses: actions/upload-artifact@v4
-        with:
-          name: test-plan
-          include-hidden-files: true
-          path: .plan
-          overwrite: true
-
       - name: 🧠 Update tests
         id: QAUpdateTests
         uses: Jacobsonius/qa-assistance-action@master
@@ -68,9 +60,9 @@ jobs:
           key: ${{ secrets.MY_SECRET_KEY }}
           action-name: JUNIT_UPDATE
           target-value: '80'
-          build-report-dir: ./
-          test-report-dir: ./target
-          coverage-report-dir: ./target
+          build-report-dir: .qa
+          test-report-dir: .qa
+          coverage-report-dir: .qa
           input-dir: ./
           output-dir: ./
 
@@ -81,37 +73,23 @@ jobs:
           mvn clean verify | tee .qa/build.log
           echo "build_exit_code=${PIPESTATUS[0]}" >> $GITHUB_OUTPUT
 
-      - name: 📄 Save build log
+      - name: 💾 Save artefact
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: build-log
-          path: .qa/build.log
+          name: qa-artefacts
           overwrite: true
-
-      - name: 📄 Save test report
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: junit-report
-          path: target/surefire-reports/*.xml
-          overwrite: true
-
-      - name: 📈 Save coverage report
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: jacoco-report
-          path: target/site/jacoco/index.html
-          overwrite: true
+          include-hidden-files: true
+          path: |
+            .plan
+            .qa/build.log
+            ./target/surefire-reports/*.xml
+            ./target/site/jacoco/index.html
 
       - name: 🧹 Remove tmp files
         run: |
           rm -f .plan
-          rm -f loadtest.log
-          rm -f build_raw.log
-          rm -f build.log
-          rm -rf .qa/.qa
+          rm -rf .qa
 
       - name: Force fail if third attempt fails
         run: |

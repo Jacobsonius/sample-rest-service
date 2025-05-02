@@ -37,6 +37,7 @@ jobs:
           output-dir: ./
 
       - name: 💾 Save artefact
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: qa-artefacts
