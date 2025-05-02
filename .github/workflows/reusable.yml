@@ -80,7 +80,8 @@ jobs:
           path: |
             build.log
             ./qa-artefacts/.qa
-            ./qa-artefacts/.plan                      
+            ./qa-artefacts/.plan
+            ./qa-artefacts/tests.json
             ./target/surefire-reports/*.xml
             ./target/site/jacoco/index.html
 
