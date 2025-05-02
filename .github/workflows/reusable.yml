@@ -37,12 +37,6 @@ jobs:
           name: qa-artefacts
           path: ./qa-artefacts
 
-      - name: Show file of work dir
-        run: tree .
-
-      - name: Show file of qa-artefacts
-        run: tree -a ./qa-artefacts
-
       - name: 🧠 Generating plan
         id: QATestPlan
         uses: Jacobsonius/qa-assistance-action@master
@@ -84,17 +78,14 @@ jobs:
           overwrite: true
           include-hidden-files: true
           path: |
-            ./qa-artefacts/.plan
             build.log
+            ./qa-artefacts/.qa
+            ./qa-artefacts/.plan                      
             ./target/surefire-reports/*.xml
             ./target/site/jacoco/index.html
 
-      - name: Show file of work dir
-        run: tree -a .
-
       - name: 🧹 Remove tmp files
         run: |
-          rm -f loadtest.log
           rm -f build.log
           rm -rf qa-artefacts
 
