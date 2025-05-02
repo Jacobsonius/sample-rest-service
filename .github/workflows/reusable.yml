@@ -31,23 +31,14 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: 📥 Download LLM index
+      - name: 📥 Download artefact
         uses: actions/download-artifact@v4
         with:
-          name: llm-index
+          name: qa-artefacts
           path: .qa
 
-      - name: 📥 Download test report
-        uses: actions/download-artifact@v4
-        with:
-          name: junit-report
-          path: target/surefire-reports/
-
-      - name: 📥 Download coverage report
-        uses: actions/download-artifact@v4
-        with:
-          name: jacoco-report
-          path: target/site/jacoco
+      - name: Show files
+        run: tree ./
 
       - name: 🧠 Generating test plan
         id: QATestPlan
@@ -56,9 +47,9 @@ jobs:
           key: ${{ secrets.MY_SECRET_KEY }}
           action-name: PLAN
           target-value: '80'
-          build-report-dir: ./
-          test-report-dir: ./target
-          coverage-report-dir: ./target
+          build-report-dir: .qa
+          test-report-dir: .qa
+          coverage-report-dir: .qa
           input-dir: ./
           output-dir: ./
 
@@ -87,19 +78,15 @@ jobs:
         id: build_step
         continue-on-error: true
         run: |
-          mvn clean verify | tee build.log
+          mvn clean verify | tee .qa/build.log
           echo "build_exit_code=${PIPESTATUS[0]}" >> $GITHUB_OUTPUT
-
-#      - name: Print build exit code
-#        run: |
-#          echo "Build exit code: ${{ steps.build_step.outputs.build_exit_code }}"
 
       - name: 📄 Save build log
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: build-log
-          path: build.log
+          path: .qa/build.log
           overwrite: true
 
       - name: 📄 Save test report

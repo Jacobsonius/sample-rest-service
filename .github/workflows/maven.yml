@@ -31,13 +31,10 @@ jobs:
           action-name: INDEX
           target-value: '80'
           build-report-dir: ./
-          test-report-dir: ./target
-          coverage-report-dir: ./target
+          test-report-dir: ./target/surefire-reports
+          coverage-report-dir: ./target/site/jacoco
           input-dir: ./
           output-dir: ./
-
-      - name: Show files
-        run: tree .
 
       - name: 💾 Save artefact
         uses: actions/upload-artifact@v4
@@ -50,29 +47,29 @@ jobs:
             ./target/site/jacoco/index.html
             ./target/surefire-reports/*.xml
 
-#  update-tests:
-#    needs: create-llm-index
-#    if: needs.create-llm-index.result == 'success'
-#    uses: ./.github/workflows/reusable.yml
-#    with:
-#      attempt: 1
-#    secrets:
-#      MY_SECRET_KEY: ${{ secrets.KEY }}
-#
-#  update-tests-retry-1:
-#    needs: update-tests
-#    if: needs.update-tests.result == 'failure' || needs.update-tests.outputs.build_exit_code != '0'
-#    uses: ./.github/workflows/reusable.yml
-#    with:
-#      attempt: 2
-#    secrets:
-#      MY_SECRET_KEY: ${{ secrets.KEY }}
-#
-#  update-tests-retry-2:
-#    needs: update-tests-retry-1
-#    if: needs.update-tests-retry-1.result == 'failure' || needs.update-tests-retry-1.outputs.build_exit_code != '0'
-#    uses: ./.github/workflows/reusable.yml
-#    with:
-#      attempt: 3
-#    secrets:
-#      MY_SECRET_KEY: ${{ secrets.KEY }}
+  update-tests:
+    needs: create-llm-index
+    if: needs.create-llm-index.result == 'success'
+    uses: ./.github/workflows/reusable.yml
+    with:
+      attempt: 1
+    secrets:
+      MY_SECRET_KEY: ${{ secrets.KEY }}
+
+  update-tests-retry-1:
+    needs: update-tests
+    if: needs.update-tests.result == 'failure' || needs.update-tests.outputs.build_exit_code != '0'
+    uses: ./.github/workflows/reusable.yml
+    with:
+      attempt: 2
+    secrets:
+      MY_SECRET_KEY: ${{ secrets.KEY }}
+
+  update-tests-retry-2:
+    needs: update-tests-retry-1
+    if: needs.update-tests-retry-1.result == 'failure' || needs.update-tests-retry-1.outputs.build_exit_code != '0'
+    uses: ./.github/workflows/reusable.yml
+    with:
+      attempt: 3
+    secrets:
+      MY_SECRET_KEY: ${{ secrets.KEY }}
