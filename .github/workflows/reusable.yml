@@ -37,6 +37,9 @@ jobs:
           name: qa-artefacts
           path: ./qa-artefacts
 
+      - name: Show stored files
+        run: tree -a .
+
       - name: 🧠 Generating plan
         id: QATestPlan
         uses: Jacobsonius/qa-assistance-action@master
@@ -69,9 +72,6 @@ jobs:
         run: |
           mvn clean verify | tee build.log
           echo "build_exit_code=${PIPESTATUS[0]}" >> $GITHUB_OUTPUT
-
-      - name: Show stored files
-        run: tree -a .
 
       - name: 💾 Save artefact
         if: always()
