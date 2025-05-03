@@ -73,6 +73,12 @@ jobs:
           mvn clean verify | tee build.log
           echo "build_exit_code=${PIPESTATUS[0]}" >> $GITHUB_OUTPUT
 
+      - name: 📁 Prepare artefacts directory
+        run: |
+          cp ./target/site/jacoco/index.html qa-artefacts/jacoco.html
+          cp ./target/surefire-reports/*.xml qa-artefacts/
+          cp -r build.log qa-artefacts/
+
       - name: 💾 Save artefact
         if: always()
         uses: actions/upload-artifact@v4
@@ -80,13 +86,7 @@ jobs:
           name: qa-artefacts
           overwrite: true
           include-hidden-files: true
-          path: |
-            build.log
-            ./qa-artefacts/.qa
-            ./qa-artefacts/.plan
-            ./qa-artefacts/tests.json
-            ./target/surefire-reports/*.xml
-            ./target/site/jacoco/index.html
+          path: qa-artefacts/
 
       - name: 🧹 Remove tmp files
         run: |

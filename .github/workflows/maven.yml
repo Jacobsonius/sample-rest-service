@@ -36,6 +36,13 @@ jobs:
           input-dir: ./
           output-dir: ./
 
+      - name: 📁 Prepare artefacts directory
+        run: |
+          mkdir -p qa-artefacts
+          cp ./target/site/jacoco/index.html qa-artefacts/jacoco.html
+          cp ./target/surefire-reports/*.xml qa-artefacts/
+          cp -r .qa qa-artefacts/
+
       - name: 💾 Save artefact
         if: always()
         uses: actions/upload-artifact@v4
@@ -43,10 +50,7 @@ jobs:
           name: qa-artefacts
           overwrite: true
           include-hidden-files: true
-          path: |
-            .qa
-            ./target/site/jacoco/index.html
-            ./target/surefire-reports/*.xml
+          path: qa-artefacts/
 
   update-tests:
     needs: create-llm-index
