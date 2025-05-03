@@ -70,6 +70,9 @@ jobs:
           mvn clean verify | tee build.log
           echo "build_exit_code=${PIPESTATUS[0]}" >> $GITHUB_OUTPUT
 
+      - name: Show stored files
+        run: tree -a .
+
       - name: 💾 Save artefact
         if: always()
         uses: actions/upload-artifact@v4
