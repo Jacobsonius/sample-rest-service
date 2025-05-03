@@ -122,6 +122,7 @@ jobs:
           username: ${{ secrets.SMTP_USERNAME }}
           password: ${{ secrets.SMTP_PASSWORD }}
           subject: "✅ QA action is complete!"
-          body: "Hi!\n\nQA action is complete. All tests is passed. 🎉"
           to: jacobsoni@mail.ru
-          from: AI CI Bot <ci-bot@example.com>
+          from: AI CI Bot <${{ secrets.SMTP_USERNAME }}>
+          content_type: text/plain
+          body: "Hi!\n\nQA action is complete. All tests is passed. 🎉"
