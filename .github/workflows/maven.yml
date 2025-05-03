@@ -69,12 +69,12 @@ jobs:
       attempt: 2
     secrets:
       MY_SECRET_KEY: ${{ secrets.KEY }}
-#
-#  update-tests-retry-2:
-#    needs: update-tests-retry-1
-#    if: needs.update-tests-retry-1.result == 'failure' || needs.update-tests-retry-1.outputs.build_exit_code != '0'
-#    uses: ./.github/workflows/reusable.yml
-#    with:
-#      attempt: 3
-#    secrets:
-#      MY_SECRET_KEY: ${{ secrets.KEY }}
+
+  update-tests-retry-2:
+    needs: update-tests-retry-1
+    if: needs.update-tests-retry-1.result == 'failure' || needs.update-tests-retry-1.outputs.build_exit_code != '0'
+    uses: ./.github/workflows/reusable.yml
+    with:
+      attempt: 3
+    secrets:
+      MY_SECRET_KEY: ${{ secrets.KEY }}
