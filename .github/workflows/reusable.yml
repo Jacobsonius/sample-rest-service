@@ -48,8 +48,8 @@ jobs:
           action-name: PLAN
           target-value: '80'
           build-report-dir: ./qa-artefacts
-          test-report-dir: ./qa-artefacts/target/surefire-reports
-          coverage-report-dir: ./qa-artefacts/target/site/jacoco
+          test-report-dir: ./qa-artefacts
+          coverage-report-dir: ./qa-artefacts
           input-dir: ./
           output-dir: ./qa-artefacts
 
@@ -61,8 +61,8 @@ jobs:
           action-name: JUNIT_UPDATE
           target-value: '80'
           build-report-dir: ./qa-artefacts
-          test-report-dir: ./qa-artefacts/target/surefire-reports
-          coverage-report-dir: ./qa-artefacts/target/site/jacoco
+          test-report-dir: ./qa-artefacts
+          coverage-report-dir: ./qa-artefacts
           input-dir: ./
           output-dir: ./qa-artefacts
 
@@ -75,9 +75,9 @@ jobs:
 
       - name: 📁 Prepare artefacts directory
         run: |
-          cp ./target/site/jacoco/index.html qa-artefacts/jacoco.html
-          cp ./target/surefire-reports/*.xml qa-artefacts/
-          cp -r build.log qa-artefacts/
+          cp ./target/site/jacoco/index.html qa-artefacts/jacoco.html || true
+          cp ./target/surefire-reports/*.xml qa-artefacts/ || true
+          cp -r build.log qa-artefacts/ || true
 
       - name: 💾 Save artefact
         if: always()
