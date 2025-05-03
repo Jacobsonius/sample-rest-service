@@ -37,9 +37,6 @@ jobs:
           name: qa-artefacts
           path: ./qa-artefacts
 
-      - name: Show stored files
-        run: tree -D -a .
-
       - name: 🧠 Generating plan
         id: QATestPlan
         uses: Jacobsonius/qa-assistance-action@master
@@ -73,11 +70,13 @@ jobs:
           mvn clean verify -Dmaven.test.failure.ignore=true | tee build.log
           echo "build_exit_code=${PIPESTATUS[0]}" >> $GITHUB_OUTPUT
 
+
       - name: 📁 Prepare artefacts directory
         run: |
           cp ./target/site/jacoco/index.html qa-artefacts/jacoco.html || true
           cp ./target/surefire-reports/*.xml qa-artefacts/ || true
           cp -r build.log qa-artefacts/ || true
+
 
       - name: 💾 Save artefact
         if: always()
@@ -94,12 +93,14 @@ jobs:
           rm -f loadtest.log
           rm -rf qa-artefacts
 
+
       - name: ❌ Force fail if third attempt fails
         run: |
           if [[ "${{ steps.build_step.outputs.build_exit_code }}" != "0" && "${{ inputs.attempt }}" == "3" ]]; then
             echo "❌ Job is being forcefully failed due to 3rd failed attempt"
             exit 1
           fi
+
 
       - name: 🔀 Create Pull Request
         if: steps.build_step.outputs.build_exit_code == '0'
