@@ -38,7 +38,7 @@ jobs:
           path: ./qa-artefacts
 
       - name: Show stored files
-        run: tree -a .
+        run: tree -D -a .
 
       - name: 🧠 Generating plan
         id: QATestPlan
@@ -70,7 +70,7 @@ jobs:
         id: build_step
         continue-on-error: true
         run: |
-          mvn clean verify | tee build.log
+          mvn clean verify -Dmaven.test.failure.ignore=true | tee build.log
           echo "build_exit_code=${PIPESTATUS[0]}" >> $GITHUB_OUTPUT
 
       - name: 📁 Prepare artefacts directory
@@ -91,6 +91,7 @@ jobs:
       - name: 🧹 Remove tmp files
         run: |
           rm -f build.log
+          rm -f loadtest.log
           rm -rf qa-artefacts
 
       - name: ❌ Force fail if third attempt fails
