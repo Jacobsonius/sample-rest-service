@@ -39,7 +39,6 @@ jobs:
           cp ./target/surefire-reports/*.xml qa-artefacts/
           cp -r .qa qa-artefacts/
 
-
       - name: 💾 Save artefact
         if: always()
         uses: actions/upload-artifact@v4
