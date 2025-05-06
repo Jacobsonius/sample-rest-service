@@ -27,12 +27,10 @@ jobs:
         id: QAIndex
         uses: Jacobsonius/qa-assistance-action@master
         with:
+          docker-username: ${{ secrets.DOCKER_USERNAME }}
+          docker-password: ${{ secrets.DOCKER_PASSWORD }}
           key: ${{ secrets.KEY }}
           action-name: INDEX
-          target-value: '80'
-          build-report-dir: ./
-          test-report-dir: ./target/surefire-reports
-          coverage-report-dir: ./target/site/jacoco
           input-dir: ./
           output-dir: ./
 
