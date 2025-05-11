@@ -43,12 +43,10 @@ jobs:
         with:
           key: ${{ secrets.MY_SECRET_KEY }}
           action-name: PLAN_UPDATE
-          target-value: '80'
           build-report-dir: ./qa-artefacts
           test-report-dir: ./qa-artefacts
-          coverage-report-dir: ./qa-artefacts
           input-dir: ./
-          output-dir: ./qa-artefacts
+          output-dir: ./
 
       - name: 🧠 Updating tests
         id: QATests
@@ -56,17 +54,16 @@ jobs:
         with:
           key: ${{ secrets.MY_SECRET_KEY }}
           action-name: JUNIT
-          target-value: '80'
           build-report-dir: ./qa-artefacts
           test-report-dir: ./qa-artefacts
-          coverage-report-dir: ./qa-artefacts
           input-dir: ./
-          output-dir: ./qa-artefacts
+          output-dir: ./
 
       - name: ⚙️Build and re-test (Attempt ${{ inputs.attempt }})
         continue-on-error: true
         run: |
           mvn clean verify -Dmaven.test.failure.ignore=true | tee build.log         
+
 
       - name: 🧠 Check target goal
         id: QACheck
@@ -97,6 +94,8 @@ jobs:
           cp ./target/site/jacoco/index.html qa-artefacts/jacoco.html || true
           cp ./target/surefire-reports/*.xml qa-artefacts/ || true
           cp -r build.log qa-artefacts/ || true
+          cp -r .plan qa-artefacts/ || true
+          cp -r .tests qa-artefacts/ || true
 
       - name: 💾 Save artefact
         if: always()
