@@ -1,0 +1,10 @@
+{
+  "entries" : [ {
+    "class" : "StudentValidator",
+    "test_class" : "StudentValidatorTests",
+    "test_class_source" : "package com.sampleservice.demo.validator;\n\nimport org.junit.Test;\nimport org.junit.runner.RunWith;\nimport org.springframework.boot.test.context.SpringBootTest;\nimport org.springframework.test.context.junit4.SpringRunner;\nimport org.springframework.http.HttpStatus;\nimport org.springframework.web.server.ResponseStatusException;\nimport java.util.Optional;\n\n@RunWith(SpringRunner.class)\n@SpringBootTest\npublic class StudentValidatorTests {\n\n    private final StudentValidator studentValidator = new StudentValidator();\n\n    @Test(expected = ResponseStatusException.class)\n    public void validate404_WhenOptionalIsEmpty_ShouldThrowResponseStatusException() {\n        Optional<String> emptyOptional = Optional.empty();\n        studentValidator.validate404(emptyOptional, \"First Name\", \"Jacob\");\n    }\n\n    @Test\n    public void validate404_WhenOptionalIsPresent_ShouldNotThrowException() {\n        Optional<String> presentOptional = Optional.of(\"SomeValue\");\n        try {\n            studentValidator.validate404(presentOptional, \"Label\", \"Value\");\n        } catch (ResponseStatusException e) {\n            throw new AssertionError(\"Exception should not have been thrown for a present Optional\", e);\n        }\n    }\n}",
+    "pom_file_source" : null,
+    "test_class_change_description" : [ "Added 'public' access modifier to the test class declaration.", "Ensured the test class has no public constructors, as it is not required for JUnit 4 test execution." ],
+    "pom_file_change_description" : null
+  } ]
+}

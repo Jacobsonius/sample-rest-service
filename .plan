@@ -1,0 +1,9 @@
+{
+  "entities" : [ {
+    "class" : "StudentValidator",
+    "test_class" : "StudentValidatorTests",
+    "test_type" : "junit",
+    "pom" : "./pom.xml",
+    "test_description" : "Verifies the application context loads successfully."
+  } ]
+}
