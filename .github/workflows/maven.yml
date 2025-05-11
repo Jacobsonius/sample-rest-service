@@ -29,8 +29,8 @@ jobs:
         with:
           key: ${{ secrets.KEY }}
           action-name: INDEX
-          input-dir: ./
-          output-dir: ./
+          input-dir: .
+          output-dir: .
 
       - name: 📁 Prepare artefacts directory
         run: |

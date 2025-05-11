@@ -45,8 +45,8 @@ jobs:
           action-name: PLAN_UPDATE
           build-report-dir: ./qa-artefacts
           test-report-dir: ./qa-artefacts
-          input-dir: ./
-          output-dir: ./
+          input-dir: .
+          output-dir: .
 
       - name: 🧠 Updating tests
         id: QATests
@@ -56,8 +56,8 @@ jobs:
           action-name: JUNIT
           build-report-dir: ./qa-artefacts
           test-report-dir: ./qa-artefacts
-          input-dir: ./
-          output-dir: ./
+          input-dir: .
+          output-dir: .
 
       - name: ⚙️Build and re-test (Attempt ${{ inputs.attempt }})
         continue-on-error: true
@@ -73,11 +73,11 @@ jobs:
           key: ${{ secrets.MY_SECRET_KEY }}
           action-name: CHECK_COMPILATION
           target-value: '0.8'
-          build-report-dir: ./
-          test-report-dir: ./target/surefire-reports/
-          coverage-report-dir: ./target/site/jacoco/
-          input-dir: ./
-          output-dir: ./
+          build-report-dir: .
+          test-report-dir: ./target/surefire-reports
+          coverage-report-dir: ./target/site/jacoco
+          input-dir: .
+          output-dir: .
 
       - name: 🔧 Make output variable
         id: QAVar
