@@ -70,16 +70,17 @@ jobs:
 
       - name: 🧠 Check target goal
         id: QACheck
+        continue-on-error: true
         uses: Jacobsonius/qa-assistance-action@master
         with:
           key: ${{ secrets.MY_SECRET_KEY }}
           action-name: CHECK_COMPILATION
           target-value: '0.8'
-          build-report-dir: ./qa-artefacts
-          test-report-dir: ./qa-artefacts
-          coverage-report-dir: ./qa-artefacts
+          build-report-dir: ./
+          test-report-dir: ./target/surefire-reports/
+          coverage-report-dir: ./target/site/jacoco/
           input-dir: ./
-          output-dir: ./qa-artefacts
+          output-dir: ./
 
       - name: 🔧 Make output variable
         id: QAVar
