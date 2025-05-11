@@ -64,6 +64,8 @@ jobs:
         run: |
           mvn clean verify -Dmaven.test.failure.ignore=true | tee build.log         
 
+      - name: LS dir (debug)
+        run: tree -a .
 
       - name: 🧠 Check target goal
         id: QACheck
@@ -82,8 +84,8 @@ jobs:
       - name: 🔧 Make output variable
         id: QAVar
         run: |
-          if [[ -f "./qa-artefacts/exit_code.txt" ]]; then
-            value=$(cat "./qa-artefacts/exit_code.txt")
+          if [[ -f "./exit_code.txt" ]]; then
+            value=$(cat "./exit_code.txt")
           else
             value=1
           fi

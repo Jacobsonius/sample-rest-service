@@ -59,7 +59,7 @@ jobs:
 
   update-tests-retry-1:
     needs: update-tests
-    if: needs.update-tests.result == 'failure' || needs.update-tests.outputs.build_exit_code != '0'
+    if: needs.update-tests.result == 'failure' || needs.update-tests.outputs.check_exit_code != '0'
     uses: ./.github/workflows/reusable.yml
     with:
       attempt: 2
@@ -68,7 +68,7 @@ jobs:
 
   update-tests-retry-2:
     needs: update-tests-retry-1
-    if: needs.update-tests-retry-1.result == 'failure' || needs.update-tests-retry-1.outputs.build_exit_code != '0'
+    if: needs.update-tests-retry-1.result == 'failure' || needs.update-tests-retry-1.outputs.check_exit_code != '0'
     uses: ./.github/workflows/reusable.yml
     with:
       attempt: 3
@@ -77,7 +77,7 @@ jobs:
 
   update-tests-retry-3:
     needs: update-tests-retry-2
-    if: needs.update-tests-retry-2.result == 'failure' || needs.update-tests-retry-2.outputs.build_exit_code != '0'
+    if: needs.update-tests-retry-2.result == 'failure' || needs.update-tests-retry-2.outputs.check_exit_code != '0'
     uses: ./.github/workflows/reusable.yml
     with:
       attempt: 4
