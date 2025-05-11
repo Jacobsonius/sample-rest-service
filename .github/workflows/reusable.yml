@@ -42,7 +42,7 @@ jobs:
         uses: Jacobsonius/qa-assistance-action@master
         with:
           key: ${{ secrets.MY_SECRET_KEY }}
-          action-name: PLAN
+          action-name: PLAN_UPDATE
           target-value: '80'
           build-report-dir: ./qa-artefacts
           test-report-dir: ./qa-artefacts
@@ -55,7 +55,7 @@ jobs:
         uses: Jacobsonius/qa-assistance-action@master
         with:
           key: ${{ secrets.MY_SECRET_KEY }}
-          action-name: JUNIT_UPDATE
+          action-name: JUNIT
           target-value: '80'
           build-report-dir: ./qa-artefacts
           test-report-dir: ./qa-artefacts
