@@ -7,9 +7,9 @@ on:
         required: true
         type: number
     outputs:
-      build_exit_code:
-        description: "Result of the Maven build"
-        value: ${{ jobs.build.outputs.build_exit_code }}
+      check_exit_code:
+        description: "Result of the check"
+        value: ${{ jobs.build.outputs.check_exit_code }}
     secrets:
       MY_SECRET_KEY:
         required: true
@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-latest
 
     outputs:
-      build_exit_code: ${{ steps.build_step.outputs.build_exit_code }}
+      check_exit_code: ${{ steps.QAVar.outputs.check_exit_code }}
 
     steps:
       - name: 🧾 Checkout project
@@ -38,7 +38,7 @@ jobs:
           path: ./qa-artefacts
 
       - name: 🧠 Generating plan
-        id: QATestPlan
+        id: QAPlan
         uses: Jacobsonius/qa-assistance-action@master
         with:
           key: ${{ secrets.MY_SECRET_KEY }}
@@ -51,7 +51,7 @@ jobs:
           output-dir: ./qa-artefacts
 
       - name: 🧠 Updating tests
-        id: QAUpdateTests
+        id: QATests
         uses: Jacobsonius/qa-assistance-action@master
         with:
           key: ${{ secrets.MY_SECRET_KEY }}
@@ -64,11 +64,32 @@ jobs:
           output-dir: ./qa-artefacts
 
       - name: ⚙️Build and re-test (Attempt ${{ inputs.attempt }})
-        id: build_step
         continue-on-error: true
         run: |
-          mvn clean verify -Dmaven.test.failure.ignore=true | tee build.log
-          echo "build_exit_code=${PIPESTATUS[0]}" >> $GITHUB_OUTPUT
+          mvn clean verify -Dmaven.test.failure.ignore=true | tee build.log         
+
+      - name: 🧠 Check target goal
+        id: QACheck
+        uses: Jacobsonius/qa-assistance-action@master
+        with:
+          key: ${{ secrets.MY_SECRET_KEY }}
+          action-name: CHECK_COMPILATION
+          target-value: '0.8'
+          build-report-dir: ./qa-artefacts
+          test-report-dir: ./qa-artefacts
+          coverage-report-dir: ./qa-artefacts
+          input-dir: ./
+          output-dir: ./qa-artefacts
+
+      - name: 🔧 Make output variable
+        id: QAVar
+        run: |
+          if [[ -f "./qa-artefacts/exit_code.txt" ]]; then
+            value=$(cat "./qa-artefacts/exit_code.txt")
+          else
+            value=1
+          fi
+          echo "check_exit_code=$value" >> "$GITHUB_OUTPUT"
 
       - name: 📁 Prepare artefacts directory
         run: |
@@ -93,13 +114,13 @@ jobs:
 
       - name: ❌ Force fail if third attempt fails
         run: |
-          if [[ "${{ steps.build_step.outputs.build_exit_code }}" != "0" && "${{ inputs.attempt }}" == "4" ]]; then
+          if [[ "${{ steps.QAVar.outputs.check_exit_code }}" != "0" && "${{ inputs.attempt }}" == "4" ]]; then
             echo "❌ Job is being forcefully failed due to 3rd failed attempt"
             exit 1
           fi
 
       - name: 🔀 Create Pull Request
-        if: steps.build_step.outputs.build_exit_code == '0'
+        if: steps.QAVar.outputs.check_exit_code == '0'
         uses: peter-evans/create-pull-request@v5
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
