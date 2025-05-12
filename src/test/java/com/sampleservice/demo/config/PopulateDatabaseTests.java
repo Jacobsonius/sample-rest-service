@@ -1,18 +1,46 @@
 package com.sampleservice.demo.config;
 
+import com.sampleservice.demo.service.StudentService;
+import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 import org.springframework.boot.ApplicationArguments;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+
 public class PopulateDatabaseTests {
 
-	@Test
-	public void runTest() {
+    @InjectMocks
+    private PopulateDatabase populateDatabase;
 
-	}
+    @Mock
+    private StudentService studentService;
 
+    @Mock
+    private ApplicationArguments applicationArguments;
+
+    @Before
+    public void setUp() {
+        MockitoAnnotations.initMocks(this);
+    }
+
+    @Test
+    public void testRunMethod() {
+        try {
+            populateDatabase.run(applicationArguments);
+
+            // Verify that the studentService.saveAll method is called exactly once
+            verify(studentService, times(1)).saveAll(Mockito.any(List.class));
+        } catch (Exception e) {
+            // Handle potential exceptions from the run method
+            e.printStackTrace();
+        }
+    }
 }
