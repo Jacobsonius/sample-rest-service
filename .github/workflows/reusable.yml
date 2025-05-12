@@ -110,6 +110,9 @@ jobs:
 
       - name: 🧹 Remove tmp files
         run: |
+          rm -f .plan
+          rm -f .tests
+          rm -f exit_code.txt
           rm -f build.log
           rm -f loadtest.log
           rm -rf qa-artefacts
