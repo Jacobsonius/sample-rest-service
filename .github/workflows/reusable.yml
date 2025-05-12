@@ -64,9 +64,6 @@ jobs:
         run: |
           mvn clean verify -Dmaven.test.failure.ignore=true | tee build.log         
 
-      - name: LS dir (debug)
-        run: tree -a .
-
       - name: 🧠 Check target goal
         id: QACheck
         continue-on-error: true
