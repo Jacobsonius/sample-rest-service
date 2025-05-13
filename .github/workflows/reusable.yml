@@ -43,8 +43,8 @@ jobs:
         with:
           key: ${{ secrets.MY_SECRET_KEY }}
           action-name: PLAN_UPDATE
-          build-report-dir: ./qa-artefacts
-          test-report-dir: ./qa-artefacts
+          attempt: ${{ inputs.attempt }}
+          artefacts-dir: ./qa-artefacts
           input-dir: .
           output-dir: .
 
@@ -54,8 +54,8 @@ jobs:
         with:
           key: ${{ secrets.MY_SECRET_KEY }}
           action-name: JUNIT
-          build-report-dir: ./qa-artefacts
-          test-report-dir: ./qa-artefacts
+          attempt: ${{ inputs.attempt }}
+          artefacts-dir: ./qa-artefacts
           input-dir: .
           output-dir: .
 
@@ -63,6 +63,7 @@ jobs:
         continue-on-error: true
         run: |
           mvn clean verify -Dmaven.test.failure.ignore=true | tee build.log         
+
 
       - name: 🧠 Check target goal
         id: QACheck
@@ -72,9 +73,9 @@ jobs:
           key: ${{ secrets.MY_SECRET_KEY }}
           action-name: CHECK_COMPILATION
           target-value: '0.8'
+          attempt: ${{ inputs.attempt }}
+          artefacts-dir: ./qa-artefacts
           build-report-dir: .
-          test-report-dir: ./target/surefire-reports
-          coverage-report-dir: ./target/site/jacoco
           input-dir: .
           output-dir: .
 
@@ -88,6 +89,7 @@ jobs:
           fi
           echo "check_exit_code=$value" >> "$GITHUB_OUTPUT"
 
+
       - name: 📁 Prepare artefacts directory
         run: |
           cp ./target/site/jacoco/index.html qa-artefacts/jacoco.html || true
@@ -95,6 +97,7 @@ jobs:
           cp -r build.log qa-artefacts/ || true
           cp -r .plan qa-artefacts/ || true
           cp -r .tests qa-artefacts/ || true
+
 
       - name: 💾 Save artefact
         if: always()
@@ -114,12 +117,14 @@ jobs:
           rm -f loadtest.log
           rm -rf qa-artefacts
 
+
       - name: ❌ Force fail if third attempt fails
         run: |
           if [[ "${{ steps.QAVar.outputs.check_exit_code }}" != "0" && "${{ inputs.attempt }}" == "4" ]]; then
             echo "❌ Job is being forcefully failed due to 3rd failed attempt"
             exit 1
           fi
+
 
       - name: 🔀 Create Pull Request
         if: steps.QAVar.outputs.check_exit_code == '0'
