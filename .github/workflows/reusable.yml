@@ -72,7 +72,7 @@ jobs:
         with:
           key: ${{ secrets.MY_SECRET_KEY }}
           action-name: CHECK_COMPILATION
-          target-value: '0.8'
+          target-value: '0.9'
           attempt: ${{ inputs.attempt }}
           artefacts-dir: ./qa-artefacts
           build-report-dir: .
