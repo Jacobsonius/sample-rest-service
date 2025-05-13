@@ -62,7 +62,7 @@ jobs:
       - name: ⚙️Build and re-test (Attempt ${{ inputs.attempt }})
         continue-on-error: true
         run: |
-          mvn clean verify -Dmaven.test.failure.ignore=true | tee build.log         
+          mvn clean verify -Dmaven.test.redirectTestOutputToFile=true | tee build.log         
 
 
       - name: 🧠 Check target goal
