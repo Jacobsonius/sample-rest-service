@@ -62,7 +62,7 @@ jobs:
       - name: ⚙️Build and re-test (Attempt ${{ inputs.attempt }})
         continue-on-error: true # mvn clean verify | tee build.log
         run: |
-          mvn clean verify -DskipTests -q -B         
+          mvn clean verify -DskipTests -q -B | tee build.log         
 
       - name: 🧠 Check target goal
         id: QACheck
