@@ -60,9 +60,9 @@ jobs:
           output-dir: .
 
       - name: ⚙️Build and re-test (Attempt ${{ inputs.attempt }})
-        continue-on-error: true # mvn clean verify | tee build.log
+        continue-on-error: true # mvn  clean verify -DskipTests -q -B
         run: |
-          mvn clean verify -DskipTests -q -B | tee build.log         
+          mvn clean verify | tee build.log 
 
       - name: 🧠 Check target goal
         id: QACheck
@@ -70,8 +70,8 @@ jobs:
         uses: Jacobsonius/qa-assistance-action@master
         with:
           key: ${{ secrets.MY_SECRET_KEY }}
-          action-name: CHECK_COMPILATION
-          target-value: '0.9'
+          action-name: CHECK_TESTS
+          target-value: '0.7'
           attempt: ${{ inputs.attempt }}
           artefacts-dir: ./qa-artefacts
           build-report-dir: .
