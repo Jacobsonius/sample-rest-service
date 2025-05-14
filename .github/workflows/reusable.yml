@@ -15,7 +15,7 @@ on:
         required: true
 
 jobs:
-  build:
+  build-and-check:
     runs-on: ubuntu-latest
 
     outputs:
@@ -74,6 +74,7 @@ jobs:
           target-value: '0.7'
           attempt: ${{ inputs.attempt }}
           artefacts-dir: ./qa-artefacts
+          test-report-dir: ./target/surefire-reports
           build-report-dir: .
           input-dir: .
           output-dir: .
