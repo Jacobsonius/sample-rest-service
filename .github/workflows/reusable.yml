@@ -15,8 +15,9 @@ on:
         required: true
 
 jobs:
-  build-and-check:
+  build:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
 
     outputs:
       check_exit_code: ${{ steps.QAVar.outputs.check_exit_code }}
@@ -64,18 +65,23 @@ jobs:
         run: |
           mvn clean verify | tee build.log 
 
+      - name: ☂️ Generate Jacoco report
+        if: always()
+        run: mvn jacoco:report
+
       - name: 🧠 Check target goal
         id: QACheck
         continue-on-error: true
         uses: Jacobsonius/qa-assistance-action@master
         with:
           key: ${{ secrets.MY_SECRET_KEY }}
-          action-name: CHECK_TESTS
+          action-name: CHECK_COVERAGE
           target-value: '0.7'
           attempt: ${{ inputs.attempt }}
           artefacts-dir: ./qa-artefacts
-          test-report-dir: ./target/surefire-reports
           build-report-dir: .
+          test-report-dir: ./target/surefire-reports
+          coverage-report-dir: ./target/site/jacoco
           input-dir: .
           output-dir: .
 
