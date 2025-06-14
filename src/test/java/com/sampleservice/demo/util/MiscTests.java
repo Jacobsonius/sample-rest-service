@@ -1,17 +1,52 @@
 package com.sampleservice.demo.util;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
+import static org.junit.Assert.*;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
 public class MiscTests {
 
-	@Test
-	public void runTest() {
+    @Test
+    public void testSum() {
+        assertEquals(5, Misc.sum(2, 3));
+    }
 
-	}
+    @Test(expected = RuntimeException.class)
+    public void testDivideByZero() {
+        Misc.divide(10, 0);
+    }
 
+    @Test
+    public void testDivide() {
+        assertEquals(2.0, Misc.divide(10, 5), 0.001);
+    }
+
+    @Test
+    public void testIsColorSupported() {
+        assertTrue(Misc.isColorSupported(Misc.Color.RED));
+        assertTrue(Misc.isColorSupported(Misc.Color.YELLOW));
+        assertTrue(Misc.isColorSupported(Misc.Color.BLUE));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testIsColorSupportedWithNull() {
+        Misc.isColorSupported(null);
+    }
+
+    @Test
+    public void testCalculateFactorial() {
+        assertEquals(120, Misc.calculateFactorial(5));
+        assertEquals(1, Misc.calculateFactorial(0));
+    }
+
+    @Test
+    public void testIsPrime() {
+        assertTrue(Misc.isPrime(11, 2));
+        assertFalse(Misc.isPrime(10, 2));
+    }
+
+    @Test
+    public void testIsEven() {
+        assertTrue(Misc.isEven(4));
+        assertFalse(Misc.isEven(7));
+    }
 }
