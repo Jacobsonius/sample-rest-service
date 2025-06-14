@@ -38,6 +38,7 @@ jobs:
           cp ./target/site/jacoco/index.html qa-artefacts/jacoco.html
           cp ./target/surefire-reports/*.xml qa-artefacts/
           cp -r .qa qa-artefacts/
+          cp -r *-report-*.md qa-artefacts/
 
       - name: 💾 Save artefact
         if: always()
