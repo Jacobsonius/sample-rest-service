@@ -103,6 +103,7 @@ jobs:
           cp -r build.log qa-artefacts/ || true
           cp -r .plan qa-artefacts/ || true
           cp -r .tests qa-artefacts/ || true
+          cp -r *-report-*.md qa-artefacts/ || true
 
 
       - name: 💾 Save artefact
@@ -121,6 +122,7 @@ jobs:
           rm -f exit_code.txt
           rm -f build.log
           rm -f loadtest.log
+          rm -f *-report-*.md 
           rm -rf qa-artefacts
 
 
